@@ -62,17 +62,25 @@ function getIP(req) {
 }
 
 function getInput () {
-	global.ins = "";
-	var stdin = process.openStdin();
-	require('tty').setRawMode(true); 
-	
-	stdin.on('keypress', function (chunk, key) {
-		console.log(key);
-		if (key && key.ctrl && key.name == 'c') process.exit();
-	});
+	var fullchunk;
 	
 	process.stdin.resume();
+	process.stdin.setEncoding('utf8');
+	
+	process.stdin.on('data', function (chunk) {
+		if (!fullchunk) {
+		    fullchunk = "";
+		}
+		fullchunk += chunk;
+	});
+	
+	process.stdin.once('end', function () {
+		process.stdin.removeAllListeners('data');
+		console.log(fullchunk);
+	});
 }
+
+getInput();
 
 var a,b,c,d,e;
 var qs = require('querystring');
