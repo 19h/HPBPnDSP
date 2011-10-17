@@ -375,6 +375,16 @@
                                                 } else $("in").focus();
                                         });
                                 }
+                                
+                                // Preload Ringtone.
+                                
+                                void(function (r) {
+                                        return (function () {
+                                                try {
+                                                        new Ajax.Request(r, {});
+                                                } catch (e) {}
+                                        })();
+                                })("/ring.wav");
                         }
                 </script>
 	</body>
