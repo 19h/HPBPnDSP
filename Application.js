@@ -61,27 +61,32 @@ function getIP(req) {
         return ip_address;
 }
 
-function getInput () {
-	var fullchunk;
-	
-	process.stdin.resume();
-	process.stdin.setEncoding('utf8');
-	
-	process.stdin.on('data', function (chunk) {
-		if (!fullchunk) {
-		    fullchunk = "";
-		}
-		fullchunk += chunk.replace(/^\s*|\s*$/g, '');
-		console.log(fullchunk, arguments);
-	});
-	
-	process.stdin.once('end', function () {
-		process.stdin.removeAllListeners('data');
-		console.log(fullchunk);
-	});
+function ask(question, format, callback) {
+ var stdin = process.stdin, stdout = process.stdout;
+ 
+ stdin.resume();
+ stdout.write(question + ": ");
+ 
+ stdin.once('data', function(data) {
+   data = data.toString().trim();
+ 
+   if (format.test(data)) {
+     callback(data);
+   } else {
+     stdout.write("It should match: "+ format +"\n");
+     ask(question, format, callback);
+   }
+ });
 }
 
-getInput();
+ask("Name", /.+/, function(name) {
+  ask("Email", /^.+@.+$/, function(email) {
+    console.log("Your name is: ", name);
+    console.log("Your email is:", email);
+ 
+    process.exit();
+  });
+});
 
 var a,b,c,d,e;
 var qs = require('querystring');
