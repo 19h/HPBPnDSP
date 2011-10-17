@@ -70,6 +70,7 @@ function getInput () {
 		console.log(key);
 		if (key && key.ctrl && key.name == 'c') process.exit();
 	});
+	
 	process.stdin.resume();
 }
 
