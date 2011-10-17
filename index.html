@@ -322,7 +322,8 @@
                                });
                                 
                                 // draw type box
-                                if ( A(xT(2, "<span id='in' contenteditable>Schreiben Sie etwas, best&auml;tigen Sie anschlie&szlig;end mit der Return-Taste.</span>", "crawl"), "crawl") ) {
+                                if ( $("pi").innerHTML = xT(2, "<span id='in' contenteditable>Schreiben Sie etwas, best&auml;tigen Sie anschlie&szlig;end mit der Return-Taste.</span>", "crawl") + $("pi").innerHTML ) {
+                                        Effect.toggle( $(id), 'slide', { duration: .2 });
                                         var defaul = $("in").innerHTML;
                                         $("in").parentNode.parentNode.setStyle({"background": "rgba(0, 1, 1, 0.3)"});
                                         Event.observe(document, 'keypress', function(event){
