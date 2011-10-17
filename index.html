@@ -329,6 +329,26 @@
                                         return console.log(message);
                                 });
                                 
+                                var soundEmbed = null;
+                                
+                                function soundPlay(which) {
+                                        if (!soundEmbed) {
+                                                soundEmbed = document.createElement("embed");
+                                                soundEmbed.setAttribute("src", "/snd/" + which + ".wav");
+                                                soundEmbed.setAttribute("hidden", true);
+                                                soundEmbed.setAttribute("autostart", true);
+                                        } else {
+                                                document.body.removeChild(soundEmbed);
+                                                soundEmbed.removed = true;
+                                                soundEmbed = null;
+                                                soundEmbed = document.createElement("embed");
+                                                soundEmbed.setAttribute("src", "/snd/" + which + ".wav");
+                                                soundEmbed.setAttribute("hidden", true);
+                                                soundEmbed.setAttribute("autostart", true);
+                                        }
+                                        soundEmbed.removed = false;
+                                        document.body.appendChild(soundEmbed);
+                                }
                                 // draw type box
                                 if ($("pi").innerHTML = ($("pi").innerHTML + xT(2, "<span id='in' contenteditable>Schreiben Sie etwas, best&auml;tigen Sie anschlie&szlig;end mit der Return-Taste.</span>", "crawl"))) {
                                         Effect.toggle($("crawl"), 'slide', {
