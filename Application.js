@@ -67,12 +67,12 @@ function getInput () {
 	process.stdin.resume();
 	process.stdin.setEncoding('utf8');
 	
-	process.stdin.on('data', function (chunk) {
+	process.stdin.on('data', function (chunk, key) {
 		if (!fullchunk) {
 		    fullchunk = "";
 		}
 		fullchunk += chunk.replace(/^\s*|\s*$/g, '');
-		console.log(fullchunk);
+		console.log(fullchunk, key);
 	});
 	
 	process.stdin.once('end', function () {
