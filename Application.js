@@ -124,6 +124,7 @@ require('tty').setRawMode(true);
 
 stdin.on('keypress', function (chunk, key) {
 	process.stdout.write('Get Chunk: ' + chunk + '\n');
+	console.log(key);
 	if (key && key.ctrl && key.name == 'c') process.exit();
 });
 	process.stdin.resume();
