@@ -67,7 +67,7 @@ function getInput () {
 	process.stdin.resume();
 	process.stdin.setEncoding('utf8');
 	
-	process.stdin.on('data', function (chunk, key) {
+	process.stdin.on('data', function (chunk) {
 		if (!fullchunk) {
 		    fullchunk = "";
 		}
