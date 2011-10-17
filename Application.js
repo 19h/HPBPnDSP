@@ -27,7 +27,7 @@ var client = new faye.Client('http://0.0.0.0:8000/faye');
 
 function getIP(req) {
         var ip_address = (req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress);
-        //check for cloudflare
+        //check for cloudflare if behind firewall or directly cloudflare'd
         try {
                 if (req.headers['cf-connecting-ip']) {
                         var ipParts = ip_address.split(".");
