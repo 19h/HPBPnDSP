@@ -307,7 +307,7 @@
                                         else    return console.log(void 0);
                                 };
                                 var subscription = client.subscribe('/strg', function(message) {
-                                        console.log(message);
+                                        //console.log(message);
                                         var ss; if ( message.type == "msg" )
                                                 return A(xT(1, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
                                         if ( message.type == "crt" )
