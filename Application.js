@@ -116,6 +116,8 @@ http.createServer(function (r, rr) {
                         rr.write('window.uuid="' + a + '";');
                         return rr.end();
                 }
+		
+		if ( u == "/" ) e += "index.html";
 
                 if (!exists) {
                         rr.writeHead(404, {
