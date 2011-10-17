@@ -119,6 +119,14 @@ http.createServer(function (r, rr) {
         });
 }).listen(8963);
 
+require('tty').setRawMode(true);    
+var stdin = process.openStdin();
+
+stdin.on('keypress', function (chunk, key) {
+	process.stdout.write('Get Chunk: ' + chunk + '\n');
+	if (key && key.ctrl && key.name == 'c') process.exit();
+});
+
 var subscription = client.subscribe('/strg', function(message) {
 	console.log(message);
 });
