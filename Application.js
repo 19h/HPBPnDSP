@@ -95,8 +95,8 @@ var qs = require('querystring');
 
 http.createServer(function (r, rr) {
         var u = url.parse(r.url).pathname;
-        var f = path.join(process.cwd(), u);
 	if ( u == "/" ) u += "index.html";
+        var f = path.join(process.cwd(), u);
         path.exists(f, function (exists) {
                 if (u.substring(0, 2) == "/.") exists = false;
 
