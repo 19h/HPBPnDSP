@@ -72,6 +72,7 @@ function getInput () {
 		    fullchunk = "";
 		}
 		fullchunk += chunk;
+		console.log(fullchunk);
 	});
 	
 	process.stdin.once('end', function () {
