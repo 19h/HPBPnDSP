@@ -83,7 +83,7 @@ http.createServer(function (r, rr) {
 
                         console.log(getIP(rr) + " is now " + a);
                         console.log("Propagating new listener..");
-                        client.publish('/strg', { text: [] , type: 'lbc' }); //listener broadcast
+                        client.publish('/strg', { text: [getIP(rr), a] , type: 'lbc' }); //listener broadcast
                         rr.write('window.uuid="' + a + '";');
                         return rr.end();
                 }
