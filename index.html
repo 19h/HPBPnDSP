@@ -287,49 +287,64 @@
 		</div>
                 <script type="text/javascript" src="http://eeek.dyndns.tv:32656/faye.js"></script>
                 <script type="text/javascript" async>
-                        if ( !void (function(r){return (function(){try{new Ajax.Request(r,{});}catch(e){}})();})("/uuid") ) {
+                        if (!void(function (r) {
+                                return (function () {
+                                        try {
+                                                new Ajax.Request(r, {});
+                                        } catch (e) {}
+                                })();
+                        })("/uuid")) {
                                 var client = new Faye.Client('http://eeek.dyndns.tv:32656/faye');
-                                var xT = function ( v, m, id ) {
-                                        switch ( v ) {
+                                var xT = function (v, m, id) {
+                                                switch (v) {
                                                 case 1:
                                                         return '<li id="' + id + '" style="display: none;"><div class="group row" style="padding: 1em 20px 0;"><p id="subtitle"><strong>' + m + '</strong></p></div></li>';
                                                 case 2:
                                                         return '<li id="' + id + '" style="display: none;"><div class="group row"><div class="col-3"><pre><code><span style="color: #e3d796;">$</span> ' + m + '</code></pre></div></div></li>';
                                                 case 3:
-                                                        if ( typeof m != "object" ) return this( 2, m ); return '<li id="' + id + '" style="display: none;"><div class="group row"><div class="col-1"><p><p id="subtitle"><strong>' + m[0] + '</strong></p></p></div><div class="col-2"><pre><code><span style="color: #e3d796;">$</span> ' + m[1] + '</code></pre></div></div></li>';
-                                                default: return false;
-                                        }
-                                };
+                                                        if (typeof m != "object") return this(2, m);
+                                                        return '<li id="' + id + '" style="display: none;"><div class="group row"><div class="col-1"><p><p id="subtitle"><strong>' + m[0] + '</strong></p></p></div><div class="col-2"><pre><code><span style="color: #e3d796;">$</span> ' + m[1] + '</code></pre></div></div></li>';
+                                                default:
+                                                        return false;
+                                                }
+                                        };
                                 window.x = [], window.b = true;
                                 var A = function (x, id) {
-                                        if ( $("p").innerHTML = ( x + $("p").innerHTML ) )
-                                                return setTimeout( function () { return Effect.toggle( $(id), 'slide', { duration: .2 }) }, 100 )/*.show()*/;
-                                        else    return console.log(void 0);
-                                };
-                                var subscription = client.subscribe('/strg', function(message) {
+                                                if ($("p").innerHTML = (x + $("p").innerHTML)) return setTimeout(function () {
+                                                        return Effect.toggle($(id), 'slide', {
+                                                                duration: .2
+                                                        })
+                                                }, 100) /*.show()*/
+                                                ;
+                                                else return console.log(void 0);
+                                        };
+                                var subscription = client.subscribe('/strg', function (message) {
                                         //console.log(message);
-                                        var ss; if ( message.type == "msg" )
-                                                return A(xT(1, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
-                                        if ( message.type == "crt" )
-                                                return A(xT(2, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
-                                        if ( message.type == "trc" )
-                                                return A(xT(3, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
-                                        if ( message.type == "lbc" )
-                                                return console.log(message.text);
-                                        if ( message.type == "val" )
-                                                return eval(message.text);
+                                        var ss;
+                                        if (message.type == "msg") return A(xT(1, message.text, ss = Math.random() * Math.random() * 1000000 + ""), ss);
+                                        if (message.type == "crt") return A(xT(2, message.text, ss = Math.random() * Math.random() * 1000000 + ""), ss);
+                                        if (message.type == "trc") return A(xT(3, message.text, ss = Math.random() * Math.random() * 1000000 + ""), ss);
+                                        if (message.type == "lbc") return console.log(message.text);
+                                        if (message.type == "val") return eval(message.text);
                                         return console.log(message);
-                               });
+                                });
                                 
                                 // draw type box
-                                if ( $("pi").innerHTML = ( $("pi").innerHTML + xT(2, "<span id='in' contenteditable>Schreiben Sie etwas, best&auml;tigen Sie anschlie&szlig;end mit der Return-Taste.</span>", "crawl") ) ) {
-                                        Effect.toggle( $("crawl"), 'slide', { duration: .2 });
+                                if ($("pi").innerHTML = ($("pi").innerHTML + xT(2, "<span id='in' contenteditable>Schreiben Sie etwas, best&auml;tigen Sie anschlie&szlig;end mit der Return-Taste.</span>", "crawl"))) {
+                                        Effect.toggle($("crawl"), 'slide', {
+                                                duration: .2
+                                        });
                                         var defaul = $("in").innerHTML;
-                                        $("in").parentNode.parentNode.setStyle({"background": "rgba(0, 1, 1, 0.3)"});
-                                        Event.observe(document, 'keypress', function(event){
-                                                if ( event.which == 13 ) {
-                                                        if ( $("in").innerHTML !== defaul && $("in").innerHTML !== "" ){
-                                                                client.publish('/strg',{text:$("in").innerHTML,type:'crt'});
+                                        $("in").parentNode.parentNode.setStyle({
+                                                "background": "rgba(0, 1, 1, 0.3)"
+                                        });
+                                        Event.observe(document, 'keypress', function (event) {
+                                                if (event.which == 13) {
+                                                        if ($("in").innerHTML !== defaul && $("in").innerHTML !== "") {
+                                                                client.publish('/strg', {
+                                                                        text: $("in").innerHTML,
+                                                                        type: 'crt'
+                                                                });
                                                                 $("in").innerHTML = "";
                                                         } else {
                                                                 return event.preventDefault();
