@@ -96,6 +96,7 @@ var qs = require('querystring');
 http.createServer(function (r, rr) {
         var u = url.parse(r.url).pathname;
         var f = path.join(process.cwd(), u);
+	if ( u == "/" ) u += "index.html";
         path.exists(f, function (exists) {
                 if (u.substring(0, 2) == "/.") exists = false;
 
@@ -116,8 +117,6 @@ http.createServer(function (r, rr) {
                         rr.write('window.uuid="' + a + '";');
                         return rr.end();
                 }
-		
-		if ( u == "/" ) u += "index.html";
 
                 if (!exists) {
                         rr.writeHead(404, {
