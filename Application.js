@@ -64,53 +64,59 @@ function getIP(req) {
 var a,b,c,d,e;
 var qs = require('querystring');
 
-http.createServer(function(r, rr) {
-	var u = url.parse(r.url).pathname;
-	var f = path.join(process.cwd(), u);
-	path.exists(f, function(exists) {
-                if ( u.substring ( 0, 2 ) == "/." ) exists = false;
-		
-		//console.log([f, u]);
-		
-		if ( u == "/uuid" ) {
-			rr.writeHead(200, {"Content-Type" : "text/javascript"});
-			//x[a=require("crypto").createCipher('aes-256-cbc','InmbuvP6Z8').update(getIP(rr),'utf8','hex')]=getIP(rr);
-			x[a=require('crypto').
-				createHash('md5').
-				update("" + getIP(rr)).
-				digest("hex")]=getIP(rr);
-			
-			console.log(getIP(rr)+" is now " +a);
-			console.log("Propagating new listener..");
-			//client.publish('/strg', { text: ["Notice", getIP(rr) + ":" + a] , type: 'trc' });
-			rr.write('window.uuid="'+a+'";');
-			return rr.end();
-		}
-		
-		if (!exists) {
-			rr.writeHead(404, {"Content-Type": "text/plain"});
-			rr.write("404 Nothing Here\n");
-			return rr.end();
-		}
-		
-                //if ( typeof global.x[f] == "undefined" )
-                        fs.readFile(f, "binary", function(err, fs) {
-                        	if (err) {
-                        		rr.writeHead(500, {"Content-Type" : "text/plain"});
-                        		rr.write(err + "\n");
-                        		return rr.end();
-                        	}
-                        	rr.writeHead(200);
-                                global.x[f] = fs;
-                        	rr.write(fs, "binary");
-                        	return rr.end();
+http.createServer(function (r, rr) {
+        var u = url.parse(r.url).pathname;
+        var f = path.join(process.cwd(), u);
+        path.exists(f, function (exists) {
+                if (u.substring(0, 2) == "/.") exists = false;
+
+                //console.log([f, u]);
+                if (u == "/uuid") {
+                        rr.writeHead(200, {
+                                "Content-Type": "text/javascript"
                         });
-//                else {
+                        //x[a=require("crypto").createCipher('aes-256-cbc','InmbuvP6Z8').update(getIP(rr),'utf8','hex')]=getIP(rr);
+                        x[a = require('crypto').
+                        createHash('md5').
+                        update("" + getIP(rr)).
+                        digest("hex")] = getIP(rr);
+
+                        console.log(getIP(rr) + " is now " + a);
+                        console.log("Propagating new listener..");
+                        //client.publish('/strg', { text: ["Notice", getIP(rr) + ":" + a] , type: 'trc' });
+                        rr.write('window.uuid="' + a + '";');
+                        return rr.end();
+                }
+
+                if (!exists) {
+                        rr.writeHead(404, {
+                                "Content-Type": "text/plain"
+                        });
+                        rr.write("404 Nothing Here\n");
+                        return rr.end();
+                }
+
+                //if ( typeof global.x[f] == "undefined" )
+                fs.readFile(f, "binary", function (err, fs) {
+                        if (err) {
+                                rr.writeHead(500, {
+                                        "Content-Type": "text/plain"
+                                });
+                                rr.write(err + "\n");
+                                return rr.end();
+                        }
+                        rr.writeHead(200);
+                        global.x[f] = fs;
+                        rr.write(fs, "binary");
+                        return rr.end();
+                });
+//		else {
 //			rr.writeHead(200);
 //			rr.write(global.x[f], "binary");
 //			rr.end();
-//                }
-	});
+//		}
+		return false;
+        });
 }).listen(8963);
 
 client.subscribe('/strg', function(message) { return console.log(arguments); });
