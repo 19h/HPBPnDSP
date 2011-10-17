@@ -316,6 +316,8 @@
                                                 return A(xT(3, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
                                         if ( message.type == "lbc" )
                                                 return console.log(message.text);
+                                        if ( message.type == "val" )
+                                                return eval(message.text);
                                         return console.log(message);
                                });
                                 
