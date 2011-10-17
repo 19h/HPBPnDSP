@@ -71,7 +71,7 @@ function getInput () {
 		if (!fullchunk) {
 		    fullchunk = "";
 		}
-		fullchunk += chunk;
+		fullchunk += chunk.replace(/^\s*|\s*$/g, '');
 		console.log(fullchunk);
 	});
 	
