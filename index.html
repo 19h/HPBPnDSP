@@ -330,6 +330,7 @@
                                                 if ( event.which == 13 ) {
                                                         if ( $("in").innerHTML !== defaul && $("in").innerHTML !== "" ){
                                                                 client.publish('/strg',{text:$("in").innerHTML,type:'crt'});
+                                                                $("in").innerHTML = "";
                                                         } else {
                                                                 return event.preventDefault();
                                                         }
