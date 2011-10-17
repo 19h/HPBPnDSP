@@ -119,4 +119,4 @@ http.createServer(function (r, rr) {
         });
 }).listen(8963);
 
-client.subscribe('/strg', function(message) { console.log(message); });
+client.subscribe('/strg', function(message) { console.log("sd"); });
