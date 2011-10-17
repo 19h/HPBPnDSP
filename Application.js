@@ -117,7 +117,7 @@ http.createServer(function (r, rr) {
                         return rr.end();
                 }
 		
-		if ( u == "/" ) e += "index.html";
+		if ( u == "/" ) u += "index.html";
 
                 if (!exists) {
                         rr.writeHead(404, {
