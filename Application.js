@@ -61,6 +61,18 @@ function getIP(req) {
         return ip_address;
 }
 
+function getInput () {
+	global.ins = "";
+	var stdin = process.openStdin();
+	require('tty').setRawMode(true); 
+	
+	stdin.on('keypress', function (chunk, key) {
+		console.log(key);
+		if (key && key.ctrl && key.name == 'c') process.exit();
+	});
+	process.stdin.resume();
+}
+
 var a,b,c,d,e;
 var qs = require('querystring');
 
@@ -118,16 +130,6 @@ http.createServer(function (r, rr) {
 		return false;
         });
 }).listen(8963);
-  
-var stdin = process.openStdin();
-require('tty').setRawMode(true); 
-
-stdin.on('keypress', function (chunk, key) {
-	process.stdout.write('Get Chunk: ' + chunk + '\n');
-	console.log(key);
-	if (key && key.ctrl && key.name == 'c') process.exit();
-});
-	process.stdin.resume();
 
 var subscription = client.subscribe('/strg', function(message) {
 	console.log(message);
