@@ -312,6 +312,8 @@
                                                 return A(xT(2, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
                                         if ( message.type == "trc" )
                                                 return A(xT(3, message.text, ss = Math.random()*Math.random()*1000000+""), ss);
+                                        if ( message.type == "lbc" )
+                                                if ( typeof message.text == "object" ) return message.text.each(console.log); else return console.log(message.text);
                                         return console.log(message);
                                });
                                 
