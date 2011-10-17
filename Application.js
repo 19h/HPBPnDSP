@@ -79,15 +79,16 @@ function ask(question, format, callback) {
                 }
         });
 }
+// Test:
 
-ask("Name", /.+/, function (name) {
-        ask("Email", /^.+@.+$/, function (email) {
-                console.log("Your name is: ", name);
-                console.log("Your email is:", email);
-
-                process.exit();
-        });
-});
+//ask("Name", /.+/, function (name) {
+//        ask("Email", /^.+@.+$/, function (email) {
+//                console.log("Your name is: ", name);
+//                console.log("Your email is:", email);
+//
+//                process.exit();
+//        });
+//});
 
 var a,b,c,d,e;
 var qs = require('querystring');
