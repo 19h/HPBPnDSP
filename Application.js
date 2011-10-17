@@ -127,10 +127,6 @@ stdin.on('keypress', function (chunk, key) {
 	if (key && key.ctrl && key.name == 'c') process.exit();
 });
 	process.stdin.resume();
-	process.stdin.on('data', function (chunk, key) {
-		console.log(chunk); console.log(key);
-		//return process.stdout.write('data: ' + chunk);
-	});
 
 var subscription = client.subscribe('/strg', function(message) {
 	console.log(message);
