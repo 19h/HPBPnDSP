@@ -15,11 +15,11 @@ var Lightview = {
   // Configuration
   options: {
     backgroundColor: '#ffffff',                            // Background color of the view
-    border: 10,                                            // Size of the border
+    border: 12,                                            // Size of the border
     buttons: {
       opacity: {                                           // Opacity of inner buttons
-        disabled: 0.2,
-        normal: 0.45,
+        disabled: 0.4,
+        normal: 0.75,
         hover: 1
       },
       side: { display: true },                             // Toggle side buttons
