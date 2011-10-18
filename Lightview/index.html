@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lightview</title>
+<meta name="title" content="Lightview"/>
+<meta name="subject" content="lightview, prototype, scriptaculous, javascript"/>
+<meta name="keywords" content="javascript, ajax, lightview, overlay, images, modal, window, photos, lytebox, lightbox, thickbox, box"/>
+<meta name="Description" content="Change the way you overlay content on a website."/>
+<meta name="author" content="Nick Stakenburg - nick@nickstakenburg.com"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="robots" content="index,follow" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+
+<link rel="shortcut icon" href="http://www.nickstakenburg.com/projects/lightview/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/projects3.css" />
+<link rel="stylesheet" type="text/css" href="../prototip2/css/prototip.css" />
+<link rel="stylesheet" type="text/css" href="/css/sifr.css" />
+<link rel="stylesheet" type="text/css" href="../download/css/licenses.css" />
+
+<link rel="alternate" type="application/rss+xml" title="Lightview Changelog RSS 2.0" href="http://feeds.feedburner.com/nickstakenburg/lightview/changelog" />
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="css/lightview.css" />
+
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js'></script>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js'></script>
+<script type='text/javascript' src='js/lightview.js'></script>
+
+<script language="javascript" type="text/javascript">
+document.observe('dom:loaded', function() {
+	$('demo_ajax').observe('click', showAjaxFormDemonstration);
+});
+
+
+function showAjaxFormDemonstration(event) {
+	Event.stop(event);
+	Lightview.show({
+		href: 'ajax/form.php',
+		rel: 'ajax',
+		options: {
+			autosize: true,
+			topclose: true,
+			ajax: {
+				onComplete: function(){
+				// once the request is complete we observe the form for a submit
+				$('ajaxForm').observe('submit', submitAjaxFormDemonstration);
+				}
+			}
+		}
+	});
+}
+
+function submitAjaxFormDemonstration(event) {
+  // block default form submit
+  Event.stop(event);
+  
+  // if there's no text in the box, don't do anything
+  var text = $('ajaxForm').down('input').value.strip();
+  if (!text) return;
+	  
+  Lightview.show({
+    href: 'ajax/form.php',
+    rel: 'ajax',
+    options: {
+      title: 'results',
+	  menubar: false,
+	  topclose: true,
+	  autosize: true,
+      ajax: {
+        parameters: Form.serialize('ajaxForm') // the parameters from the form
+      }
+    }
+  });
+}
+
+// show the code for the Ajax Demo
+function showAjaxFormCode(event) {
+	Event.stop(event);
+	Lightview.show({
+		href: 'ajax/form_code.php',
+		rel: 'ajax',
+		options: {
+			autosize: true,
+			topclose: true
+		}
+	});
+	
+}
+</script>
+
+
+<script src="../prototip2/js/prototip.js" type='text/javascript'></script>
+<script src="../js/projects3.js" type='text/javascript'></script>
+
+
+<!-- Cufon -->
+<script type='text/javascript' src='js/cufon/cufon.js'></script>
+<script type='text/javascript' src='js/cufon/OfficinaSansBoldItalic_italic_700.font.js'></script>
+
+<script src='js/lib.js' type='text/javascript'></script>
+</head>
+<body class='projectLightview'>
+<ul id='page'>
+<li id='left'>
+  <div id='menumove'>
+	<div id='logo'></div>
+
+	<ul class='menu'>
+		<li><a href='#' class='navlink' rel='page'>Intro</a></li>
+		<li><a href='#' class='navlink' rel='demonstrations'>Demonstrations</a></li>
+		<li><a href='#' class='navlink' rel='installation'>Installation</a></li>
+		<li><a href='#' class='navlink' rel='howtouse'>How to use</a></li>
+		<li><a href='#' class='navlink' rel='documentation'>Documentation</a></li>
+		<li><a href='#' class='navlink' rel='troubleshooting'>Troubleshooting</a></li>
+		<li><a href='#' class='navlink' rel='license'>License</a></li>
+		<li><a href='#' class='navlink' rel='license'>Download</a></li>
+		<li><a href='#' class='navlink' rel='contact'>Contact</a></li>
+	</ul>
+
+	<div class='latestVersion'>
+		<span>Latest version:</span>
+		<div class='version'><a href='#' class='navlink' rel='license'>2.7.4</a> <span class='date'>21-07-2011</span></div>
+	</div>
+
+	<div class='lower'>
+      
+        <div class='menunews'>
+            <a class='projectPreview' href='http://projects.nickstakenburg.com/tipped'><img src='/projects/images/tipped_menunews.gif' alt='' style='border: 0'/></a>
+        
+            <p><strong class='new'><a href='http://projects.nickstakenburg.com/tipped'>New</a></strong> Tipped 2 - jQuery Tooltips</p>
+		</div>
+    
+                    
+        <a class='nickstakenburg ' href='http://www.nickstakenburg.com'><!-- logo --></a>
+    </div>
+  </div>
+</li>
+<li id='right'>
+
+<div class='chapter' id='intro'>
+	<div id='tagline'><div id='ideas'><!-- ideas --></div></div>
+	<p>Lightview was built to change the way you overlay content on a website.</p>
+
+	<ul class='features'>
+		<li class='tipped' title="Lightview is designed from the ground up to present your images as nice as possible. Side buttons will make sure your image is always 100% visible. Buttons inside the view will be light when you don't need them, to keep the focus on the image."><span>Clean</span>: Designed to compliment your content.</li>
+		<li class='tipped' title="Surrounding images are preloaded when you are viewing a set. Even when you hover lightview links on the page associated images will be preloaded to make the experience faster."><span>Fast</span>: Smart image preloading.</li>
+		<li class='tipped' title="Lightview will know when you have replaced the default images with your own and adjusts the CSS to make things work. You only have to change the options to get the look and feel you want within seconds."><span>Easy</span>: Customizable without having to know CSS.</li>
+		<li class='tipped' title="No longer will you have to create PNG images to get rounded corners. Lightview uses Canvas and VML to draw these corners for you, with a radius you set. This makes it possible to quickly change them to your liking."><span>Rounded</span>: Adjustable rounded corners, no PNG images required.</li>
+		<li class='tipped' title="When you open images they will resize to the viewport, as you go smaller the close button will also adjust to keep things clean."><span>Smart</span>: Content resizes to always fit on your screen.</li>
+		<li><span>Slideshow</span>: One button slideshow.</li>
+		<li><span>Works on all modern <a href='javascript:;' id='supportedBrowsersTooltip'>browsers</a>.</span></li>
+	</ul>
+
+	<div class='supportedBrowsers' style='display: none;'>
+		<img src='../images/browser_ie.gif' align="middle" alt=''/> 6+
+		<img src='../images/browser_ff.gif' align="middle" alt=''/> 2+
+		<img src='../images/browser_safari.gif' align="middle" alt=''/> 2+
+		<img src='../images/browser_opera.gif' align="middle" alt=''/> 9.5+</div>
+	<div id='featuresImage'></div>
+</div>
+
+<div class='chapter clearfix' id='demonstrations'>
+	<h1>Demonstrations</h1>
+    
+    <div class='demobox first'>
+        <div class='group galleryGroup'>
+            <h2>Gallery</h2>
+            <!-- <p>The classic way of showing images.</p> -->
+            
+            <ul>    
+                <li>
+                    <a href='images/example/yellow.jpg' class='lightview' rel='gallery[myset]' title=' :: Move your mouse over the image to navigate.' id='demo1'><img src='images/example/gallery_yellow_thumb.jpg' alt=''/></a>
+                </li>
+                <li>
+                    <a href='images/example/pink.jpg' class='lightview' rel='gallery[myset]' title='Lightview :: Keyboard navigation is possible using the arrow keys.' id='demo2'><img src='images/example/gallery_pink_thumb.jpg' alt=''/></a>
+                </li>
+                <li>
+                    <a href='images/example/blue.jpg' class='lightview' rel='gallery[myset]' title="Slideshow :: Click the play button or press P to start the built-in slideshow." id='demo3'><img src='images/example/gallery_blue_thumb.jpg' alt=''/></a>
+                </li>
+            </ul>
+        </div><!-- .group -->
+        
+        <div class='group'>
+            <h2>Mixed sets</h2>
+            <!-- <p>A nice way to show mixed sets of content using the new controller.</p> -->
+                <ul class='clearfix'>
+                    <li>
+                      <a href='images/example/green.jpg' class='lightview' rel='set[set1]' title=" :: :: width: 480, height: 220" id='demo_set_1'><img src='images/example/image_thumb.jpg' alt=''/></a>
+                      <div class='type'>Image</div>
+                    </li>
+                                        <li>
+                      <a href='http://trailers.apple.com/movies/wb/suckerpunch/suckerpunch-tlr2_480p.mov?width=848&height=352' rel='set[set1]' class='lightview' title=" :: :: width: 848, height: 352" id='demo_set_2'><img src='images/example/suckerpunch_thumb.jpg' alt=''/></a>
+                      <div class='type'>Quicktime</div>
+                    </li>
+                    <li>
+						<a href='http://www.adobe.com/jp/events/cs3_web_edition_tour/swfs/perform.swf' class='lightview' rel='set[set1]' id='demo_swf' title='Flash :: A demo from Adobe.com :: width: 720, height: 460'><img src='images/example/swf_thumb.jpg' alt=''/></a>
+						<div class='type'>Flash</div>
+					</li>
+				</ul>
+
+		</div><!-- .group -->
+	</div>
+    
+
+  <div class='demobox'>
+  	  <div class='group'>
+      <h2>Other media</h2>
+
+      <ul class='clearfix'>
+        <li>
+          <a href='http://trailers.apple.com/movies/fox/jumper/jumper-tlr2_h.640.mov?width=640&height=272' class='lightview' title=" :: :: width: 640, height: 272" id='demo_video'><img src='images/example/quicktime_thumb.jpg' alt=''/></a>
+          <div class='type'>Quicktime</div>
+        </li>
+    
+        <li>
+            <!-- this demo is triggered using a call to Lightview.show, check HEAD -->
+            <a href='#' id='demo_ajax'><img src='images/example/ajax_form_thumb.jpg' alt=''/></a>
+            <div class='type'>Ajax &amp; Forms</div>
+        </li>
+    	
+        <li>
+          <a href='images/example/antialiasing.jpg' class='lightview' title=" Anti-aliasing ::  Lightview adds anti-aliasing to browsers that don't support it so images look great at every size. Resize your browser window before opening any of the demonstration images to see in in action."><img src='images/example/antialiasing_thumb.jpg' alt=''/></a>
+          <div class='type'>Anti-aliasing</div>
+        </li>
+        
+        <li><a href='http://www.prototypejs.org' class='lightview' title="Prototype JavaScript framework - Fullscreen:: :: fullscreen: true" id='demo_iframe' rel='iframe'><img src='images/example/iframe_thumb.jpg' alt=''/></a>
+            <div class='type'>Iframe</div>
+        </li>
+
+		<li>
+			<a href='#documentation' class='lightview' title="Inline content :: Lightview can show inline elements on your page, the demonstration is used here as an example. :: autosize: true"><img src='images/example/inline_content_thumb.jpg' alt=''/></a>
+			<div class='type'>Inline content</div>
+		</li>
+
+        <li>
+            <a href='#demoInline' class='lightview' title=":: :: autosize: true, keyboard: false, overlayClose: false, menubar: false "><img src='images/example/inline_api_thumb.jpg' alt=''/></a>
+            <div class='type'>Inline &amp; API</div>
+        </li>
+
+        
+      </ul>
+    
+	</div><!-- .group -->
+    
+    </div> 
+    
+    
+    <div class='credits'>
+    	<div class='padder'>
+            Gallery photos &copy; <a href='http://www.flickr.com/photos/11234074@N05/' target='_blank'>Philippe Vieux-Jeanton</a>
+            <span class='divider'>|</span> 
+            Mixed set &amp; Anti-aliasing photo &copy; <a href='http://www.flickr.com/photos/big-e-mr-g/' target='_blank'>Ian Grainger</a>
+        </div>
+	</div>
+	
+    <!-- the inline demo, not displayed at this time -->
+    <div id='demoInline' style='display:none'>
+    	<img src='images/inline_usingapi.gif' class='usingapi' alt=''/>
+        
+        <p><em>This demonstration shows how the Lightview API can be used to create a custom view.</em></p>
+        
+		<p>You might want your users to agree to some terms before proceeding, blocking access to the page below having only one clickable button. The 'take me back' button on this view is the only way to close it. Clicking on the overlay or pressing Esc to close is also disabled.</p>
+        
+        <p>This is just a basic example, by using the Lightview API you can customize everything to your liking creating more advanced views containing login forms, disclaimers, feedback forms etc.</p>
+        
+        <a href='#' id='demoInlineTakeMeBack' onclick='Lightview.hide();return false;'><img src='images/inline_takemeback.gif' alt=''/></a>
+
+        <div style='clear:both'></div>    	
+    </div>
+    
+</div>
+
+<div class='chapter' id='installation'>
+	<h1>Installation</h1>
+	
+    <h2>Setup your doctype</h2>
+	<p>First make sure you have a valid doctype set as the very first line on the page. 
+I recommend using the <a href='http://dev.w3.org/html5/spec/syntax.html#the-doctype' target='_blank'>HTML5 doctype</a>:</p>
+
+    
+    <div class='code'>
+    	<div class='padder'>
+    	<code>&lt;!DOCTYPE html&gt;</code>
+        </div>
+	</div>
+
+	<h2>Upload the required files</h2>
+    <p>Upload all files from the lightview package to your server: Javascript, CSS and the images.</p>
+    
+    <p>Lightview requires <a href='http://prototypejs.org/download' target='_blank'>Prototype <strong>1.7+</strong></a> and 
+    <a href='http://script.aculo.us' target='_blank'>Scriptaculous <strong>1.8.3+</strong></a>. In the example below I'm including 
+    both using the <a href='http://code.google.com/apis/ajaxlibs/documentation/index.html#prototype' target='_blank'>Google AJAX Libraries API</a>. 
+    As an alternative you could download and host Prototype and Scriptaculous yourself, but by including both using 
+    <a href='http://code.google.com/apis/ajaxlibs/documentation/index.html#prototype' target='_blank'>Google's AJAX Libraries API</a> you don't have 
+    to worry about caching and bandwidth cost.</p>
+
+	<h2>Add Lightview to your page</h2>
+    <p>Add Lightview below these libraries, the correct order of the javascript files is as in the example below.</p>
+    
+	<div class='code'>
+    	<div class='padder'>
+    	<pre>&lt;script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='/js/lightview.js'&gt;&lt;/script&gt;
+</pre>
+        </div>
+    </div>
+    
+    <p>Add lightview.css to your header.</p>
+    <div class='code'>
+    	<div class='padder'>
+        	<pre>&lt;link rel="stylesheet" type="text/css" href="css/lightview.css" /&gt;</pre>
+        </div>
+    </div>
+    
+       
+    <p class='tip'><strong>tip:</strong> The <a href='http://code.google.com/apis/ajaxlibs/documentation/index.html#prototype' target='_blank'>Google Ajax Libraries API</a> can be used to automatically load the latest version of Prototype and Scriptaculous. Using Prototype for example, the last part of the url can be changed to <span class='js'>/1.7/prototype.js</span> for the latest <span class='js'>1.7.*</span> release, or <span class='js'>/1/prototype.js</span> for the latest <span class='js'>1.*</span> release.</p>
+    </div>
+
+
+<div class='chapter' id='howtouse'>
+	<h1>How to use</h1>
+
+	<h2>A simple view</h2>
+    <p>A view is created using a links class attribute. Single images should have the rel attribute set to 'image', but you can also use no rel attribute at all.</p>
+    <div class='code'>
+        <div class='padder'>
+        <pre>&lt;a href='image.jpg' class='lightview'&gt;My image&lt;/a&gt;</pre>
+        </div>
+    </div>
+    
+    <h2>Image galleries</h2>
+    <p>An image gallery can be created using <span class='js'>rel='gallery[galleryname]'</span></p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>&lt;a href='image1.jpg' class='lightview' rel='gallery[mygallery]'&gt;Image 1&lt;/a&gt;
+&lt;a href='image2.jpg' class='lightview' rel='gallery[mygallery]'&gt;Image 2&lt;/a&gt;</pre>
+		</div>
+    </div>
+    
+    <h2>Mixed sets of content</h2>
+    <p>A set can contain any type of media, it's syntax is similar to that of a gallery except <span class='js'>set</span> is used instead of <span class='js'>gallery</span>. The slideshow button will be enabled when a set consists of images only.</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>&lt;a href='image.jpg' class='lightview' rel='set[myset]'&gt;My image&lt;/a&gt;
+&lt;a href='movie.mov' class='lightview' rel='set[myset]'&gt;A Quicktime movie&lt;/a&gt;
+&lt;a href='flash.swf' class='lightview' rel='set[myset]'&gt;Flash movie&lt;/a&gt;</pre>
+		</div>
+    </div>
+    
+    <h2>Setting title and description</h2>
+    <p>You can set the title and caption using the title attribute. Use the characters <span class='js'>::</span> if you want both title and caption. This character combination can be changed using the <span class='js'>titleSplit</span> option.</p>
+    <div class='code'>
+		<div class='padder'>
+        <pre>&lt;a href='leopard.jpg' title='A title' class='lightview'&gt;Leopard&lt;/a&gt;
+&lt;a href='gazelle.jpg' title='This image has a title :: And a caption' class='lightview'&gt;Gazelle&lt;/a&gt;
+&lt;a href='cheetah.jpg' title=":: I don't have a title, just a caption" class='lightview'&gt;Cheetah&lt;/a&gt;
+&lt;a href='rhino.jpg' title="Left in split characters will get stripped :: " class='lightview'&gt;Rhino&lt;/a&gt;
+</pre>
+		</div>
+    </div>
+    
+    <h2>Customization</h2>
+    <p>Media other then images supports a thirth parameter with options. There are a lot of options you can use, check the documentation for the available options on each type of media.</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>&lt;a href='http://google.com' rel='iframe' title='Google :: :: fullscreen: true' class='lightview'&gt;Google&lt;/a&gt;
+&lt;a href='http://yahoo.com' rel='iframe' title='Yahoo :: caption :: width: 800, height: 600' class='lightview'&gt;Yahoo&lt;/a&gt;</pre>
+		</div>
+    </div>
+    
+    <h2>Detecting filetype</h2>
+    <p>Lightview will automatically try to detect what type of content you are viewing based on the extensions set in lightview.js. When Lightview can't detect your filetype you will have to set the rel attribute to match it. If you want to show flash for example and the filetype isn't automatically detected you'll have to set <span class='js'>rel='flash'</span>, other options are <span class='js'>quicktime</span>, <span class='js'>inline</span>, <span class='js'>ajax</span> and <span class='js'>iframe</span>.</p>
+    
+    <p>It's also possible to force a filetype on a set using the following syntax <span class='js'>rel='set[setname][type]'</span>. It's impossible for Lightview to detect that the videos below are flash videos since there are no file extensions, forcing the filetype solves this problem. See <a href='#' class='navlink' rel='forcemediatype'>the documentation</a> for more information on filetypes and forcing them onto a view.</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>&lt;a href='http://www.youtube.com/v/CQzUsTFqtW0' class='lightview' rel='set[myset][flash]'&gt;Youtube&lt;/a&gt;
+&lt;a href='http://vimeo.com/moogaloop.swf?clip_id=2874824&amp;server=vimeo.com&amp;autoplay=1' class='lightview' rel='set[myset][flash]'&gt;Vimeo&lt;/a&gt;</pre>
+		</div>
+    </div>
+    
+    <h2>Quicktime, Flash, Inline, Ajax &amp; Iframe views</h2>
+    <p>Lightview will show inline content if you set the href attribute to <span class='js'>'#id'</span>. The <span class='js'>autosize</span> option can be used on ajax and inline views, this will automatically resize them to the content recieved. <span class='js'>topclose</span> can be used on ajax, iframe and inline content to have the close button that slides out instead of the static one.</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>&lt;a href='#hiddenform' class='lightview' title=" :: :: topclose: true, autosize: true"&gt;Show Form&lt;/a&gt;
+&lt;a href='/ajax/' class='lightview' rel='ajax' title=" :: :: ajax: { onComplete: callback }"&gt;Ajax Form&lt;/a&gt;
+&lt;a href='#anotherElement' class='lightview' title=" :: :: menubar: false"&gt;No menubar&lt;/a&gt;</pre>
+		</div>
+    </div>
+    
+    <h2>Using the API</h2>
+    <p>It's possible to show a view using javascript:</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>document.observe('lightview:loaded', function() {
+  Lightview.show({
+    href: '/ajax/',
+    rel: 'ajax',
+    title: 'Login',
+    caption: 'Enter your username and password to login',
+    options: {
+      autosize: true,
+      topclose: true,
+      ajax: {
+        method: 'get',
+        evalScripts: true,
+        onComplete: function(){ $('name').focus(); }
+      }
+    }
+  });
+});
+
+// Here we observe an element and call Lightview.show, the lightview:loaded event
+// is used here to make sure Lightview.show is available.
+document.observe("lightview:loaded", function() {
+  $("elementId").observe('click', function() {
+    Lightview.show({ href: 'anotherElementId', rel: 'inline' });
+  });
+});
+
+// If you have firebug installed you can run this from your console, have fun.
+Lightview.show({ href: 'http://www.google.com', rel: 'iframe', options: { width: 800, height: 500 }});</pre>
+		</div>
+    </div>
+    
+    <p>The type of view will be auto-detected using the url you provide. If for some reason you want to force a specific type of view you can overwrite the auto-detection using the rel attribute.</p>
+    <div class='code'>
+    	<div class='padder'>
+        <pre>Lightview.show({
+  href: 'http://www.youtube.com/v/0alNtVUy7YY&amp;autoplay=1',
+  rel: 'flash'
+});</pre>
+		</div>
+	</div>
+    
+</div>
+
+<div class='chapter' id='documentation'>
+	<h1>Documentation</h1>
+    
+    <h2>Configuration</h2>
+    <p>You can set the following options in lightview.js.</p>
+    
+	<ul class='functions clearfix'>
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>backgroundColor</div>
+				<div class='explained'>The background color of the view.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>border</div>
+				<div class='explained'>Pixel size of the border</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>buttons.opacity</div>
+				<div class='explained'>Changes the opacity of the buttons inside the view for different states (normal, hover, disabled).</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>buttons[button].display</div>
+				<div class='explained'>Toggle the display of the side, inner previous/next and the slideshow buttons.</div>
+			</div>
+		</li>
+  
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>cyclic</div>
+				<div class='explained'>When true, galleries will be cyclic, allowing you to keep pressing next/back.</div>
+			</div>
+		</li>
+        
+        <li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>controller[options]</div>
+				<div class='explained'>Configure the Controller used with sets.</div>
+			</div>
+		</li>
+        
+        <li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>defaultOptions</div>
+				<div class='explained'>Configure the default options for each media type.</div>
+			</div>
+		</li>
+        
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>images</div>
+				<div class='explained'>The directory of the images, relative to the javascript file ('../images/lightview/') or an absolute url ('http://yoururl.com/images/lightview/').</div>
+			</div>
+		</li>
+  
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>imgNumberTemplate</div>
+				<div class='explained'>A string to go below title/caption, using #{position} and #{total}.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+            <div class='name'>keyboard</div>
+            <div class='explained'>Enable or disable the keyboard buttons.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+            <div class='name'>menubarPadding</div>
+            <div class='explained'>The padding in pixels between the menubar and the content.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>overlay</div>
+				<div class='explained'>Toggle the overlay or set it's opacity. On Mac Safari and Firefox overlay.png is used, you will need to modify it for those browsers.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+            <div class='name'>overlay.close</div>
+            <div class='explained'>Toggle if clicking the overlay should close Lightview.</div>
+			</div>
+		</li>
+  
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>preloadHover</div>
+				<div class='explained'>Preloads images on mouseover when true.</div>
+			</div>
+		</li>
+  
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>radius</div>
+				<div class='explained'>The pixel radius of the corners.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>removeTitles</div>
+				<div class='explained'>Set to false if you want to preserve title attributes.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>resizeDuration</div>
+				<div class='explained'>The duration of the resizing.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>slideshowDelay</div>
+				<div class='explained'>The time each image is visible during a slideshow.</div>
+			</div>
+		</li>
+        
+        <li class='function'>
+			<div class='padder clearfix'>
+<div class='name'>startDimensions</div>
+            <div class='explained'>The dimensions Lightview starts at when opened.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+<div class='name'>titleSplit</div>
+            <div class='explained'>The characters that split title caption and options, '::' by default. This means that if you only want to give options you use: title=' :: :: fullscreen: true '</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>transition</div>
+				<div class='explained'>Scriptaculous transition during resizing.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>viewport</div>
+				<div class='explained'>Resizes images to stay within the viewport when they open, if true.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>zIndex</div>
+				<div class='explained'>zIndex of the lightview, the overlay has this value - 1.</div>
+			</div>
+		</li>
+    </ul>
+
+
+    <h2 id='forcemediatype'>Forcing media type using the rel attribute</h2>
+    <p>You can overwrite the auto detection of the media type. This is useful when Lightview is not detecting your media. For example, when including Youtube or Google video through flash you need to use <span class='js'>rel='flash'</span>, on a set you will need to use <span class='js'>rel='set[setname][flash]'</span>. The following types can be set on the rel attribute.</p>
+
+	<ul class='functions clearfix'>
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>ajax</div>
+				<div class='explained'>Get the content using an ajax call.</div>
+			</div>
+		</li>
+
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>flash</div>
+				<div class='explained'>Treat the content as flash.</div>
+			</div>
+		</li>
+
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>image</div>
+				<div class='explained'>Treat the content as an image.</div>
+			</div>
+		</li>
+
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>iframe</div>
+				<div class='explained'>Load the url in an iframe.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>inline</div>
+				<div class='explained'>Show the content as inline. A shortcut to this method is using <span class='js'>'#id'</span> as the href.</div>
+			</div>
+		</li>
+
+        <li class='function'>
+        	<div class='padder clearfix'>
+				<div class='name'>quicktime</div>
+				<div class='explained'>Show the content using Quicktime.</div>
+			</div>
+		</li>
+	</ul>
+
+
+    <h2>View options</h2>
+    <p>These options can be used as thirth parameters in the title attribute, seperated by commas. title='title :: caption :: autosize: true, topclose: true'</p>
+
+	<ul class='functions clearfix'>
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>ajax</div>
+				<div class='explained'>Additional options you would normal put as options on an <a href='http://prototypejs.org/api/ajax/request' target='_blank'>Ajax.Request</a>.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>autosize</div>
+				<div class='explained'>For inline and ajax views, resizes the view to the element recieves. Make sure it has dimensions otherwise this will give unexpected results.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>closeButton</div>
+				<div class='explained'>'small', 'large' or false to change/hide the close button inside the view.</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>width</div>
+				<div class='explained'>integer, sets the width of the view in pixels</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>height</div>
+				<div class='explained'>integer, sets the height of the view in pixels</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>flashvars</div>
+				<div class='explained'>flashvars to put on the swf object</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>fullscreen</div>
+				<div class='explained'>true or false, shows the view in fullscreen, usable on iframes.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>innerPreviousNext</div>
+				<div class='explained'>true of false, toggle the inner previous and next button for this image.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>keyboard</div>
+				<div class='explained'>true or false, toggle the keyboard buttons for this view</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>loop</div>
+				<div class='explained'>true of false, for quicktime movies</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>menubar</div>
+				<div class='explained'>'top', 'bottom' or false, shows the menubar above or below the content or hides it when false.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>overflow</div>
+				<div class='explained'>Set the overflow CSS property to create or hide scrollbars for inline and ajax views. Possible values are <span class='js'>'auto'</span> or <span class='js'>'hidden'</span>.</div>
+			</div>
+		</li>
+        
+        <li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>overlayClose</div>
+				<div class='explained'>when false, disables the overlay close on click for this view.</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>slideshow</div>
+				<div class='explained'>true or false, toggle the slideshow button for this image.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>topclose</div>
+				<div class='explained'>true or false, show the sliding close button instead of the static one.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>wmode</div>
+				<div class='explained'>flash uses wmode: "transparent" by default, overwrite using wmode: "window" or "opaque".</div>
+			</div>
+		</li>
+	</ul>
+
+    <h2>Functions</h2>
+    <p>The following function are available to you.</p>
+
+	<ul class='functions clearfix'>
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Lightview.updateViews()</div>
+				<div class='explained'>Force a reset of all Lightview elements on the page. Most of the time you won't need to do this since Lightview will pick up on newly inserted elements automatically. After updating existing elements it might be required to call this function.</div>
+			</div>
+		</li>
+
+        <li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Lightview.show(param)</div>
+				<div class='explained'>Accepts 'id', element and object as parameter and shows the view associated with it.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Lightview.show('#id')</div>
+				<div class='explained'>A shortcut for inline content, this shows the element with the id using an inline view.</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Lightview.hide()</div>
+				<div class='explained'>Hides lightview.</div>
+			</div>
+		</li>
+    </ul>
+    
+    <h2>Custom Events</h2>
+    <p>Lightview comes with a set of useful custom events you can observe to attach your own callback functions.</p>
+
+	<ul class='functions clearfix'>
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>lightview:opened</div>
+				<div class='explained'><p>You can observe the document or individual links for this event. A function can be called when the event fires. Within the function, event.target will refer to the element that was opened, a few examples:</p>
+          
+          <pre>document.observe('lightview:opened', function(event) {
+  alert('You opened ' + event.target.href);
+});
+
+$('myId').observe('lightview:opened', function(event) {
+  new Effect.Pulsate($('lightview').down('.title'));
+});
+</pre></div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>lightview:hidden</div>
+				<div class='explained'>Fires when you hide lightview, can be used like the :opened event.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>lightview:loaded</div>
+				<div class='explained'><p>Fires on the document when Lightview is loaded and ready for a Lightview.show call.</p>
+          
+          <pre>document.observe('lightview:loaded', function() {
+  Lightview.show('myId');
+});</pre></div>
+			</div>
+		</li>
+    </ul>
+    
+    <h2>Keyboard shortcuts</h2>
+	<ul class='functions clearfix'>
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Arrow left / right</div>
+				<div class='explained'>Previous and next image.</div>
+			</div>
+		</li>
+
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>P / S</div>
+				<div class='explained'>Play and stop the slideshow.</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Home / End</div>
+				<div class='explained'>First and last image of the set.</div>
+			</div>
+		</li>
+      
+		<li class='function'>
+			<div class='padder clearfix'>
+				<div class='name'>Esc</div>
+				<div class='explained'>Hide lightview.</div>
+			</div>
+		</li>
+    </ul>
+    
+
+    <div style='clear:both;'></div>
+</div>
+
+<div class='chapter' id='troubleshooting'>
+	<h1>Troubleshooting</h1>
+    
+    <h2>I use jQuery but Lightview doesn't work with it out of the box, it tells me to enable jQuery noConflict, how should I do that?</h2>
+    <p>Since Lightview uses Prototype you'll have to enable jQuery.noConflict to avoid conflicts between jQuery and Prototype. 
+    You can find <a href='http://api.jquery.com/jQuery.noConflict/' target='_blank'>documentation about it on the jQuery website</a>. 
+    Here's an example of a correct use of jQuery.noConflict so it works with third party code like Lightview:</p>
+    
+    <div class='code'>
+      <div class='padder'>
+      <pre>&lt;!-- Include jQuery --&gt;
+&lt;script type='text/javascript' src='/js/jquery.min.js'&gt;&lt;/script&gt;
+
+&lt;!-- Enable noConflict --&gt;
+&lt;script type='text/javascript'&gt;jQuery.noConflict();&lt;/script&gt;
+
+&lt;!-- Other scripts can now safely use their own $ function --&gt;
+&lt;script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/scriptaculous/1/scriptaculous.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='/js/lightview.js'&gt;&lt;/script&gt;
+</pre>
+        </div>
+    </div>
+    
+    <h2>I've enabled jQuery.noConflict but now some of my jQuery code doesn't work, how do I fix that?</h2>
+    <p class='solution'>
+    Since the point of jQuery.noConflict is to remove the $ function out of the global scope and give it back to 
+    its original owner you should always use a closure that turns the jQuery object into the $ function. This makes it possible
+    to use the jQuery object as the $ function within your own scope, making your code work with third party code. Here's an example:</p>
+    
+    <div class='code'>
+      <div class='padder'>
+      <pre>(function($) {
+  /* The jQuery $ function can be used here without conflict.
+   * It's recommended to always use a closure like this so your jQuery code will work 
+   * with third party code without having to modify anything later on.
+   * 
+   * jQuery plugins that are properly coded already use a closure like this. 
+   */
+   
+   $(document).ready(function() { alert('this is jQuery'); });
+})(jQuery);
+
+$(document).observe('dom:loaded', function() { alert('this is Prototype'); });
+</pre>
+        </div>
+    </div>
+    
+    <h2>Lightview doesn't open in the center of the window.</h2>
+    <p>Give your page a doctype, I recommend using the <a href='http://dev.w3.org/html5/spec/syntax.html#the-doctype' target='_blank'>HTML5 doctype</a>.</p>
+    
+    <h2>The overlay doesn't cover the entire screen.</h2>
+    <p>See the solution above.</p>
+    
+    <h2>When I click the lightview link, a new window opens instead of lightview.</h2>
+    <p>Lightview will look for links with the class lightview once the DOM is loaded. Even though this only takes a little while for most pages it could be that you've clicked the link before the documented was loaded.</p>
+    
+    <h2>The effects don't work no matter what I try.</h2>
+    <p>You must have effects.js from the Scriptaculous package. Get the full scriptaculous download at <a href='http://script.aculo.us' target='_blank'>script.aculo.us</a></p>
+    
+    <h2>Lightview doesn't look the same when I use it on my website.</h2>
+    <p>This could be because lightview.css is not included or the images are not uploaded. It also happens when your own CSS is conflicting with lightview.css. Make sure you target elements in your CSS without setting things global, code like <span class='js'>li { display: inline; }</span> for example is bad practice when you use third party code like Lightview. When your CSS is properly coded and all the required files are uploaded and included you should have no problem implementing Lightview.</p>
+    
+    <h2>It's still not working.</h2>
+    <p>Make sure you have the right versions of <a href='http://www.prototypejs.org/download/' target='_blank'>Prototype</a> and <a href='http://script.aculo.us' target='_blank'>Scriptaculous</a> and validate your website using <a href='http://validator.w3.org'>validator.w3.org</a> before posting for support on the <a href='http://forum.nickstakenburg.com' target="_blank">Lightview Forum</a>. I also recommend getting <a href='http://www.getfirefox.com' target='_blank'>Firefox</a> with the <a href='http://addons.mozilla.org/firefox/addon/1843' target='_blank'>Firebug addon</a>, many problems posted on the forum are quickly solved with the debugging it provides.</p>
+    
+
+<p>
+<script type="text/javascript"><!--
+google_ad_client = "pub-6761694466897790";
+/* 728x90, gemaakt 12-3-08 */
+google_ad_slot = "5482875946";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</p>
+</div>
+
+
+<div class='chapter' id='license'>
+  <h1>License</h1>
+  
+<div id='inlineDemo' class='clearfix'>
+
+<p id='licenseIntroduction'>Permission to use Lightview on your domain is required and can be obtained by paying a small fee. For non-commercial domains this will allow you to use Lightview under a <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' target='_blank'>Creative Commons by-nc-nd License</a>. When you get permission for a <a href='javascript:;' class='whencommercial'>commercial</a> domain you may use Lightview under the terms of the <a href='http://creativecommons.org/licenses/by-nd/3.0/' target='_blank'>Creative Commons by-nd License</a>.</p>
+
+<ul class='purchase clearfix'>
+	<li class='noncommercial'>
+		<div class='header'>
+			<div class='description'>
+				<h3>Non-Commercial</h3>
+				<h4>Single domain</h4>
+			</div>
+		</div>
+
+		<div class='info'>A small fee is required for non-commercial use.</div>
+		<div class='price'>
+			<a href='javascript:;' class='submit single' rel='noncommercial'><img alt="" src="../download/images/lightview/paypal_buy_noncommercial.gif"/></a>
+		</div>
+	</li>
+
+	<li class='noncommercial'>
+		<div class='header'>
+			<div class='description'>
+				<h3>Non-Commercial</h3>
+				<h4>Unlimited</h4>
+			</div>
+		</div>
+
+		<div class='info'>Get permission to use Lightview and future updates on all the non-commercial websites you develop in the future, at no further cost.</div>
+		<div class='price'>
+			<a href='javascript:;' class='submit' rel='noncommercialUnlimited'><img alt="" src="../download/images/lightview/paypal_buy_noncommercial_unlimited.gif"/></a>
+		</div>
+	</li>
+
+	<li class='commercial'>
+		<div class='header'>
+			<div class='description'>
+				<h3>Commercial</h3>
+				<h4>Single domain</h4>
+			</div>
+		</div>
+
+		<div class='info'>This will give you permission to use Lightview on a single commercial domain.</div>
+
+		<p id='whencommercial' class='whencommercial'><a href='javascript:;'>When is my website considered commercial?</a></p>
+
+		<div class='whenCommercialTooltip' style='display:none;'>
+			<ul class='when'>
+				<li>Websites an income is achieved with.</li>
+				<li>Websites that intend to achieve an income.</li>
+				<li>Websites that sell products or services.</li>
+				<li>Websites with banner or advertising revenues.</li>
+				<li>Portfolios.</li>
+				<li>Business websites.</li>
+				<li>Shop websites.</li>
+				<li>Club websites (membership corporation).</li>
+				<li>Erotic projects or erotic sites.</li>
+				<li>Radio stations.</li>
+			</ul>
+            
+			<ul class='when'>
+				<li>Auction websites.</li>
+				<li>Bet, gamble and lot websites.</li>
+				<li>Paid mail services.</li>
+				<li>Websites which arouse public interest such as,</li>
+				<li>Churchly, honorary or other organizations,</li>
+				<li>Associations and parties.</li>
+				<li>Websites with sales and/or profit-making orientation.</li>
+				<li>Websites that are based on sponsors or endorsement.</li>
+				<li>Websites that run on a commercial basis.</li>
+			</ul>
+		</div>
+<script type='text/javascript'>
+//<![CDATA[
+document.observe('dom:loaded', function() {
+  
+	$$('.whencommercial').each(function(element) {
+		var top = element.rel == 'tiptop',
+		 stem = top ? 'bottomMiddle' : 'topMiddle',
+		 hookTarget = top ? 'topRight' : 'bottomMiddle',
+		 offsetY = top ? -6 : 6;
+		
+		new Tip(element, $$('.whenCommercialTooltip')[0].cloneNode(true), {
+			title: 'What is a commercial website?',
+			stem: stem,
+			style: 'protoblue',
+			hook: { tip: stem, target: hookTarget },
+			offset: { x: 0, y: offsetY },
+			width: 'auto',
+			delay: 0.05
+		});
+	});
+});
+  
+//]]>
+</script>
+
+		<div class='price'>
+			<a href='javascript:;' class='submit single' rel='commercial'><img alt="" src="../download/images/lightview/paypal_buy_commercial.gif"/></a>
+		</div>
+	</li>
+
+	<li class='commercial' >
+		<div class='header'>
+			<div class='description'>
+				<h3>Commercial</h3>
+				<h4>Unlimited</h4>
+			</div>
+		</div>
+
+		<div class='info'>With unlimited permission you are allowed to use Lightview and all future updates on any commercial website you develop in the future, at no further cost.</div>
+		<div class='price'>
+			<a href='javascript:;' class='submit' rel='commercialUnlimited'><img alt="" src="../download/images/lightview/paypal_buy_commercial_unlimited.gif"/></a>
+		</div>
+      </li>
+</ul>
+</div>
+<div style='clear: both;'></div>	  
+</div>
+
+
+<div class='chapter' id='download'>
+	<h1>Download</h1>
+
+    <ul class='links clearfix'>
+    	<li class='link'>
+        	<a href='../download/?project=lightview'>
+            	<span class='icon'><!-- download icon --></span>
+                <span class='version'>Lightview 2.7.4</span>
+			</a>
+		</li>
+    </ul>
+
+    <p class='notes'><strong>Note: </strong> When updating make sure to <strong>replace all files.</strong></p>
+
+
+    <div class='changelog'>
+    <h2>Changelog</h2>
+    
+	<p><a href='http://feeds.feedburner.com/nickstakenburg/lightview/changelog' class='updatesfeed'><!-- feed --></a>The latest changelog entries. Subscribe to the feed if you want to be notified of updates.    </p>
+    <div class='code'>
+    	<div class='padder'>...</div>
+    </div>
+</div>
+</div>
+
+<div class='chapter' id='contact'>
+	<h1>Contact</h1>
+
+    <p>Use the <a href='http://www.nickstakenburg.com/forum/' target="_blank">Lightview Forum</a> for support related questions, feedback, feature requests and bug reports. If you are posting for support please read through the <a href='#' rel='troubleshooting' class='navlink'>Troubleshooting</a> section first.</p>
+
+    <p>For anything <strong>non-support</strong> related you can contact me at <a href='mailto:nick@nickstakenburg.com'>nick@nickstakenburg.com</a> or <a href='http://www.twitter.com/staaky' target='_blank'>@staaky</a>. Please use the <a href='http://www.nickstakenburg.com/forum/' target="_blank">Forum</a> to get support, I don't have the time to answer every support related email individualy.</p>
+
+    <p class='tags'><img src='images/tags.gif' alt=''/> lightview, overlay, images, prototype, photos, effects, scriptaculous, javascript, slideshow, gallery, video, quicktime, flash, inline, lightbox, <span style='display: none;'>thickbox, lytebox, lightwindow, light, box, lightbox, slimbox, lytebox, lytebox, litebox</span> window, web2.0, <a href='http://creativecommons.org/licenses/by-nc-nd/3.0/' target='_blank'>Creative Commons by-nc-nd License</a>, &copy; 2008-2011 <a href='http://www.nickstakenburg.com'>Nick Stakenburg</a></p>
+</div><span class='keys'>lightbox alternative, prototype, thickbox, slimbox, overlay, photos, web2.0, quicktime, image lightbox, scriptaculous, litebox, modal, nick, stakenburg, include the lightbox, slideshow, reference lightbox, gallery, add rel lightbox, lightbox.js, lightwindow, script lightbox, css lightbox, language javascript lightbox, scriptaculous lightbox, lightbox is, set lightbox, lytebox, gallery lightbox, effects, javascript lightbox.</span></li>
+</ul>
+
+<div style='clear:both'></div>
+</body>
+</html>
