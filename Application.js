@@ -21,7 +21,7 @@ bayeux = new faye.NodeAdapter({
 	timeout:  45,
 })
 
-bayeux.listen(32656);
+bayeux.listen(8080);
 
 var client = new faye.Client('http://0.0.0.0:8000/faye');
 
@@ -146,7 +146,7 @@ http.createServer(function (r, rr) {
 //		}
 		return false;
         });
-}).listen(8963);
+}).listen(80);
 
 var subscription = client.subscribe('/strg', function(message) {
 	console.log(message);
