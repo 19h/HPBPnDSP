@@ -15,7 +15,7 @@ var Lightview = {
   // Configuration
   options: {
     backgroundColor: '#ffffff',                            // Background color of the view
-    border: 3,                                            // Size of the border
+    border: 10,                                            // Size of the border
     buttons: {
       opacity: {                                           // Opacity of inner buttons
         disabled: 0.2,
