@@ -21,9 +21,9 @@ bayeux = new faye.NodeAdapter({
 	timeout:  45,
 })
 
-bayeux.listen(8080);
+bayeux.listen(8192);
 
-var client = new faye.Client('http://0.0.0.0:8080/faye');
+var client = new faye.Client('http://0.0.0.0:8192/faye');
 
 function getIP(req) {
         var ip_address = (req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress);
@@ -146,7 +146,7 @@ http.createServer(function (r, rr) {
 //		}
 		return false;
         });
-}).listen(80);
+}).listen(8080);
 
 var subscription = client.subscribe('/strg', function(message) {
 	console.log(message);
