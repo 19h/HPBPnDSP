@@ -23,7 +23,7 @@ bayeux = new faye.NodeAdapter({
 
 bayeux.listen(8080);
 
-var client = new faye.Client('http://0.0.0.0:8000/faye');
+var client = new faye.Client('http://0.0.0.0:8080/faye');
 
 function getIP(req) {
         var ip_address = (req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress);
