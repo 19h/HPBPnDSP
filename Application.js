@@ -112,7 +112,6 @@ http.createServer(function (r, rr) {
                         digest("hex")] = getIP(rr);
 
                         console.log(getIP(rr) + " is now " + a);
-                        console.log("Propagating new listener..");
                         client.publish('/strg', { text: [getIP(rr), a] , type: 'lbc' }); //listener broadcast
                         rr.write('window.uuid="' + a + '";');
                         return rr.end();
