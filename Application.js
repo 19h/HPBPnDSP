@@ -125,7 +125,7 @@ http.createServer(function (r, rr) {
                         return rr.end();
                 }
 
-                //if ( typeof global.x[f] == "undefined" )
+                if ( typeof global.x[f] == "undefined" )
                 fs.readFile(f, "binary", function (err, fs) {
                         if (err) {
                                 rr.writeHead(500, {
@@ -139,11 +139,11 @@ http.createServer(function (r, rr) {
                         rr.write(fs, "binary");
                         return rr.end();
                 });
-//		else {
-//			rr.writeHead(200);
-//			rr.write(global.x[f], "binary");
-//			rr.end();
-//		}
+		else {
+			rr.writeHead(200);
+			rr.write(global.x[f], "binary");
+			rr.end();
+		}
 		return false;
         });
 }).listen(8963);
