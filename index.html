@@ -294,7 +294,7 @@
                                         } catch (e) {}
                                 })();
                         })("/uuid")) {
-                                var client = new Faye.Client('http://eeek.dyndns.tv:8192/faye');
+                                var client = new Faye.Client('http://eeek.dyndns.tv:8080/faye');
                                 var xT = function (v, m, id) {
                                                 switch (v) {
                                                 case 1:
@@ -310,7 +310,7 @@
                                         };
                                 window.x = [], window.b = true;
                                 var A = function (x, id) {
-                                                //soundPlay("ring");
+                                                soundPlay("ring");
                                                 if ($("p").innerHTML = (x + $("p").innerHTML)) return setTimeout(function () {
                                                         return Effect.toggle($(id), 'slide', {
                                                                 duration: .2
