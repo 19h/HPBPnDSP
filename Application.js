@@ -148,6 +148,15 @@ http.createServer(function (r, rr) {
         });
 }).listen(8963);
 
-var subscription = client.subscribe('/strg', function(message) {
-	console.log(message);
-});
+var clientAuth = {
+  outgoing: function(message, callback) {
+    console.log(message);
+    return callback(message);
+  }
+};
+
+client.addExtension(clientAuth);
+
+//var subscription = client.subscribe('/strg', function(message) {
+//	console.log(message);
+//});
