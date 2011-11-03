@@ -3,7 +3,7 @@ var sys = require("sys"),
 	url = require("url"),
 	path = require("path"),
 	fs = require("fs"),
-	spdy = require("spdy");
+	spdy = require("node-spdy");
 
 var assert = function () {
         return console.log(arguments[0]);
