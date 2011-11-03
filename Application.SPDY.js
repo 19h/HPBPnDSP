@@ -5,6 +5,9 @@ var sys = require("sys"),
 	fs = require("fs"),
 	spdy = require("node-spdy");
 
+s = new server.Server();
+s.listen(1111);
+
 var assert = function () {
         return console.log(arguments[0]);
 };
