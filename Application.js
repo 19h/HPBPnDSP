@@ -152,6 +152,10 @@ var clientAuth = {
   outgoing: function(message, callback) {
     console.log(message);
     return callback(message);
+  },
+  incoming: function(message, callback) {
+    console.log(message);
+    return callback(message);
   }
 };
 
