@@ -1,0 +1,128 @@
+= FayeObjC
+
+A simple Objective-C client library for the Faye publish-subscribe messaging server. FayeObjC is implementing on top of the zimt Objective-C web socket library and will work on both Mac and iPhone projects. JSON parsing is handled using the excellent JSONKit (https://github.com/johnezang/JSONKit) library which is included in the FayeObjC source folder.
+
+= Mac Test Client
+
+Included in the repository is a zipped release build of the FayeObjC Mac client.  This client allows you to test your Faye server, it connects over a websocket connection to the server specified and subscribes to the channel specified and will send messages via the server/channel it is connected to.
+
+The messages are of the form { message: "some text" }
+
+If you want to use the mac client to connect and test your faye server just unzip and start it on any mac.
+
+The Mac client is available in the Downloads section of the repo - click "Downloads" to access it.
+
+= Building the library
+
+Using it in a Mac project:
+
+Using FayeObjC is as simple as adding the FayeObjC source folder to your Xcode project directory and then adding it to the project.  FayeObjc has only one dependency the CoreServices.framework on Mac OS X which is used by AsyncSocket (part of the zimt websocket library).  
+
+Add the CoreServices.framework to your project by right clicking on Linked Frameworks in the Project and selecting Add->Existing Frameworks...
+
+
+Using it in an iPhone project:
+
+Using FayeObjC is as simple as adding the FayeObjC source folder to your Xcode project directory and then adding it to the project.  FayeObjc has only one dependency the CFNetwork.framework on iOS which is used by AsyncSocket (part of the zimt websocket library).
+
+Add the CFNetwork.framework to your project by right clicking on Linked Frameworks in the Project and selecting Add->Existing Frameworks...
+
+== Working with the library
+
+Initialize a Client:
+  // import the client
+  #import "FayeClient.h"
+
+  // init the FayeClient with a server and channel to subscribe to
+  FayeClient *faye = [[FayeClient alloc] initWithURLString:@"ws://localhost:8000/faye" channel:@"/chat"];
+  faye.delegate = self; // ensure that you implement the FayeClientDelegate functions
+  // connect to the server
+  [faye connectToServer];
+  
+Implement the FayeClientDelegate:
+  - (void) messageReceived:(NSDictionary *)messageDict {
+    DLog(@"message received");
+    // do something useful with the message dictionary    
+  }
+
+  - (void)connectedToServer {
+    // Faye connection established    
+  }
+
+  - (void)disconnectedFromServer {
+    // Faye disconnected
+  }
+
+Send a message to the Server:
+  // The message dictionary can be any dictionary structure that you want to send via the connected channel 
+  NSDictionary *messageDict = [NSDictionary dictionaryWithObjectsAndKeys: @"Some message text", @"message", @"some meta information", @"meta", nil];
+  [faye sendMessage:messageDict];
+
+
+Using Bayeux Extensions:
+  // Faye supports extensions to accomplish things like authentication  
+  // import the client
+  #import "FayeClient.h"
+
+  // init the FayeClient with a server and channel to subscribe to
+  FayeClient *faye = [[FayeClient alloc] initWithURLString:@"ws://localhost:8000/faye" channel:@"/chat"];
+  faye.delegate = self; // ensure that you implement the FayeClientDelegate functions
+  
+  // setup the extension and connect to the server
+  NSDictionary *ext = [NSDictionary dictionaryWithObjectsAndKeys:@"testing", @"authToken", nil];
+  [faye connectToServerWithExt:ext];
+        
+  // sending an extension with a standard message
+  NSDictionary *messageDict = [NSDictionary dictionaryWithObjectsAndKeys: @"Some message text", @"message", @"some meta information", @"meta", nil];
+  
+  NSDictionary *ext = [NSDictionary dictionaryWithObjectsAndKeys:@"testing", @"authToken", nil];
+  [faye sendMessage:messageDict withExt:ext];
+
+
+Example Project:
+
+Included in the repository is a sample XCode project for Mac that provides a simple client application for interacting with Faye servers.  Try it out and have a look at the code for an illustration on the usage of the library.
+
+The fayeMac sample project allows you to test out any Faye server.
+
+= Credits
+
+= Faye
+Faye is a simple JSON based Pub-Sub server which has support for node.js and Ruby (using Rack).
+
+Check out the Faye project here:
+* http://faye.jcoglan.com
+
+= ZTWebSocket
+ZTWebSocket is a websocket library built on top of AsyncSocket which provides an easy to use interface for working with websocket connections
+* https://github.com/esad/zimt
+
+= JSONKit
+JSONKit is an awesome JSON parser written in Objective-C which is both simple and extremely fast.
+* https://github.com/johnezang/JSONKit
+
+
+== License
+
+(The MIT License)
+
+Copyright (c) 2011 Paul Crawford
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
